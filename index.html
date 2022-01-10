@@ -13,12 +13,39 @@
         <div><p>Time</p></div>
     </header>
     <main>
-        <section>
-            <h1>Quiz: JavaScript!</h1>
-            <p>
+        <!--Section for the quiz instructions.-->
+        <section id="instructions">
+            <h1 class="header" id="header">Quiz: JavaScript!</h1>
+            <p class="content" id="content">
                 This is a quiz about concepts, terms, and code about the JavaScript programming language.
             </p>
-            <button>Start Quiz!</button>
+            <button class="start" id="start">Start Quiz!</button>
+        </section>
+
+        <!--Section for the quiz, hidden.-->
+        <section class="quiz" id="quiz">
+            <div class="quiz_header">
+                <h2 id="question">Question text</h2>
+                <ul>
+                    <li>
+                        <input type="radio" id="a" name="answer" class="answer" />
+                        <label for="a" id="a_answer">Answer</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="b" name="answer" class="answer" />
+                        <label for="b" id="b_answer">Answer</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="c" name="answer" class="answer" />
+                        <label for="c" id="c_answer">Answer</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="d" name="answer" class="answer" />
+                        <label for="d" id="d_answer">Answer</label>
+                    </li>
+                </ul>
+            </div>
+            <button id="submit">Next</button>
         </section>
     </main>
     <script src="resources/js/script.js"></script>
