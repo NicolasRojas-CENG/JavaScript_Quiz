@@ -7,10 +7,13 @@ const answerDEl = document.getElementById("d_answer");
 const nextEl = document.getElementById("submit");
 const startEl = document.getElementById("start");
 const instructionsEl = document.getElementById("instructions");
+const timeEl = document.getElementById("time");
 
 let quizData = [];
 let questionNum = 0;
+let counter;
 var score = 0;
+var time = 200;
 
 quizEl.style.display = "none";
 
@@ -102,11 +105,34 @@ quizData = [
         c: "event.preventDefault()",
         d: "event.pauseDefault()",
         answer: "c",
-    },];
+    }];
 var startQuiz = function (){
     instructionsEl.style.display = "none";
     quizEl.style.display = "block";
     loadQuiz();
+    timeEl.textContent = time; 
+    time--;
+    timeCall();    
+}
+
+function timeCall(){
+    counter = setInterval(timer, 1000);
+    function timer(){
+        timeEl.textContent = time; 
+        time--;
+        if (questionNum == quizData.length){
+            clearInterval(counter);
+            timeEl.style.display = "none";
+        }
+        
+        if (time < 0){
+            debugger;
+            time = Math.max(0, time);
+            endQuiz();
+            clearInterval(counter);
+            timeEl.style.display = "none";
+        }
+    }
 }
 
 function loadQuiz(){
@@ -130,6 +156,7 @@ var nextQuestion = function(){
         console.log("correct!" + score);
     }
     else{
+        time-=20;
         console.log("incorrect");
     }
     questionNum++;
@@ -137,12 +164,17 @@ var nextQuestion = function(){
         loadQuiz();
     }
     else{
-        quizEl.innerHTML = `<h2>You have completed the quiz.</h2>
+        endQuiz();
+    }
+}
+}
+
+function endQuiz(){
+    score = score +(time * 2);
+    quizEl.innerHTML = `<h2>You have completed the quiz.</h2>
             <h3>Your score is ${score} out of a possible ${quizData.length}</h3>
             <h3>Excellent!</h3>
             <button onclick="location.reload()">Try Again</button>`;
-    }
-}
 }
 
 function getAnswers() {
