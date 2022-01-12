@@ -15,21 +15,20 @@ const answerAEl = document.getElementById("a_answer");
 const answerBEl = document.getElementById("b_answer");
 const answerCEl = document.getElementById("c_answer");
 const answerDEl = document.getElementById("d_answer");
-
+//Content/text elements.
 const timeContentEl = document.getElementById("time");
 const resultContentEl = document.getElementById("resultContent");
 const scoreContentEl = document.getElementById("scoresContent");
 const messageContentEl = document.getElementById("message");
-
-let highScores = [];
-let quizData = [];
-let questionNum = 0;
-let counter;
-
-var time = 200;
-var score = 0;
-var temparr = "";
-var saveSlot = 0;
+//Variable declaration.
+let highScores = [];//Array for scores.
+let quizData = [];//Array for the questions/answers. 
+let questionNum = 0;//Question tracker.
+let counter;//For the timer.
+var time = 200;//Time ;imit.
+var score = 0;//Quiz score.
+var temparr = "";//Used to help save to localStorage.
+var saveSlot = 0;//Index for saving to localStorage.
 
 quizData = [
     {
@@ -39,72 +38,63 @@ quizData = [
       c: "alerts",
       d: "numbers",
       answer: "c",
-    },
-    {
+    },{
         question: "A ________ is a predefined action that we can call or invoke in our code.?",
         a: "Object",
         b: "Function",
         c: "Variable",
         d: "All of the above",
         answer: "b",
-    },
-    {
+    },{
         question: "_______ is plain-language description ofthe steps that an algorithm or application must complete.",
         a: "Low-level code",
         b: "Plain code",
         c: "High-Level code",
         d: "Pseudo code",
         answer: "d",
-    },
-    {
+    },{
         question: "Arrays in JavaScript can be used to store ______.",
         a: "Other Arrays",
         b: "Booleans",
         c: "Numbers and Strings",
         d: "All of the above",
         answer: "d",
-      },
-      {
+    },{
           question: "The condition in an if/else statement is enclosed with _______.",
           a: "curly brackets {}",
           b: "parenthesis ()",
           c: "square brackets []",
           d: "quotes \"\"",
           answer: "b",
-      },
-      {
+    },{
           question: "The first letter of a name is lowercase, but the first letter of every word that follows is uppercase.",
           a: "CrowCaseing",
           b: "CamelCaseing",
           c: "CraneCaseing",
           d: "CarpCaseing",
           answer: "b",
-      },
-      {
+    },{
         question: "What is Math.random() is used for?.",
         a: "returns a random number between 0 and 10, not including 10.",
         b: "returns a random number between 0 and 1, including 1.",
         c: "returns a random number between 0 and 10, including 10",
         d: "returns a random number between 0 and 1, not including 1",
         answer: "d",
-    },
-    {
+    },{
         question: "The first index of an array is.",
         a: "-1",
         b: "0",
         c: "1",
         d: "None of the above",
         answer: "b",
-    },
-    {
+    },{
         question: "An event listener is the ",
         a: "Response to an event",
         b: "User behaviour",
         c: "Observation of an event",
         d: "Creation of an event",
         answer: "c",
-    },
-    {
+    },{
         question: "_______ tells the browser to not carry out its default behaviour.",
         a: "event.stopDefault()",
         b: "event.haltDefault()",
@@ -112,7 +102,7 @@ quizData = [
         d: "event.pauseDefault()",
         answer: "c",
     }];
-
+//Process of getting values from localStorage.
 var savedScores = localStorage.getItem("High-scores");
 savedScores = JSON.parse(savedScores);//Converts to array. Original format.
 if (savedScores){
@@ -147,7 +137,6 @@ function loadQuiz(){
 
 //Function used to deselect any previous answer from the user.
 function clearAnswer() {
-    //To unselect all of the options.
     const answers = document.querySelectorAll(".answer");
     answers.forEach((answers) => {
       answers.checked = false;
@@ -211,7 +200,6 @@ var nextQuestion = function(){
 function getAnswers() {
     const answersEl = document.querySelectorAll(".answer");
     let option = undefined;
-    //To check which option was checked by the user.
     answersEl.forEach((answersEl) => {
         if (answersEl.checked) {
             option = answersEl.id;
@@ -255,6 +243,7 @@ function resetQuiz () {
 
 saveButtonEl.addEventListener("click", saveScore);
 
+//Function used to show the scores.
 function showScores() {
     var string = "";
     scoresScreenEl.style.display = "block";
@@ -271,6 +260,7 @@ function showScores() {
 
 scoresButtonEl.addEventListener("click", showScores);
 
+//Function used to back out the score screen.
 function backToInstructions(){
     instructionsScreenEl.style.display = "block";
     scoresScreenEl.style.display = "none";
