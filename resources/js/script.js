@@ -1,14 +1,14 @@
 //Different screens.
-const instructionsEl = document.getElementById("instructions");
-const quizEl = document.getElementById("quiz");
-const resultsEl = document.getElementById("results");
-const scoresEL = document.getElementById("scoreScreen");
+const instructionsScreenEl = document.getElementById("instructions");
+const quizScreenEl = document.getElementById("quiz");
+const resultsScreenEl = document.getElementById("results");
+const scoresScreenEl = document.getElementById("scoreScreen");
 //Different buttons.
-const startEl = document.getElementById("start");
-const nextEl = document.getElementById("submit");
-const saveEl = document.getElementById("save");
+const startButtonEl = document.getElementById("start");
+const nextButtonEl = document.getElementById("submit");
+const saveButtonEl = document.getElementById("save");
 const scoresButtonEl = document.getElementById("scores");
-const backEl = document.getElementById("back");
+const backButtonEl = document.getElementById("back");
 //Question elements.
 const questionEl = document.getElementById("question");
 const answerAEl = document.getElementById("a_answer");
@@ -16,10 +16,10 @@ const answerBEl = document.getElementById("b_answer");
 const answerCEl = document.getElementById("c_answer");
 const answerDEl = document.getElementById("d_answer");
 
-const timeEl = document.getElementById("time");
+const timeContentEl = document.getElementById("time");
 const resultContentEl = document.getElementById("resultContent");
 const scoreContentEl = document.getElementById("scoresContent");
-const messageEl = document.getElementById("message");
+const messageContentEl = document.getElementById("message");
 
 let highScores = [];
 let quizData = [];
@@ -57,20 +57,20 @@ quizData = [
         answer: "d",
     },
     {
-        question: "Which one is the correct implementation of a for loop?",
-        a: "for (var i = 0; i < 10; i++){...}",
-        b: "for (; i < 10; i++){...}",
-        c: "for (var i = 0; i < 10; ){...}",
+        question: "Arrays in JavaScript can be used to store ______.",
+        a: "Other Arrays",
+        b: "Booleans",
+        c: "Numbers and Strings",
         d: "All of the above",
         answer: "d",
       },
       {
-          question: "Which keyword is used to exit out a loop.",
-          a: "break",
-          b: "stop",
-          c: "exit",
-          d: "return",
-          answer: "a",
+          question: "The condition in an if/else statement is enclosed with _______.",
+          a: "curly brackets {}",
+          b: "parenthesis ()",
+          c: "square brackets []",
+          d: "quotes \"\"",
+          answer: "b",
       },
       {
           question: "The first letter of a name is lowercase, but the first letter of every word that follows is uppercase.",
@@ -118,18 +118,17 @@ savedScores = JSON.parse(savedScores);//Converts to array. Original format.
 if (savedScores){
     highScores = savedScores;
     saveSlot = highScores.length;
-}
-else{
+}else{
     saveSlot = 0;
 }
 
-
 //Function used to start the quiz.
 var startQuiz = function (){
-    instructionsEl.style.display = "none";
-    quizEl.style.display = "block";
+    instructionsScreenEl.style.display = "none";
+    scoresButtonEl.style.display = "none";
+    quizScreenEl.style.display = "block";
     loadQuiz();
-    timeEl.textContent = time; 
+    timeContentEl.textContent = time; 
     time--;
     timeCall();    
 }
@@ -159,12 +158,11 @@ function clearAnswer() {
 function timeCall(){
     counter = setInterval(timer, 1000);
     function timer(){
-        timeEl.textContent = time; 
+        timeContentEl.textContent = time; 
         time--;
         if (questionNum == quizData.length){
             clearTimer();
         }
-        
         if (time < 0){
             endQuiz();
             clearTimer();
@@ -176,21 +174,20 @@ function timeCall(){
 function endQuiz(){
     time = Math.max(0, time);
     score = score + (time * 2);
-    resultsEl.style.display = "block";
-    quizEl.style.display = "none";
+    resultsScreenEl.style.display = "block";
+    quizScreenEl.style.display = "none";
     resultContentEl.textContent="Your score is " + score;
 }
 
 //Function used to clear the timer at the end of the quiz.
 function clearTimer() {
     clearInterval(counter);
-    timeEl.style.display = "none";
+    timeContentEl.style.display = "none";
 }
-
-quizEl.style.display = "none";
-resultsEl.style.display = "none";
-scoresEL.style.display = "none";
-startEl.addEventListener("click", startQuiz);
+quizScreenEl.style.display = "none";
+resultsScreenEl.style.display = "none";
+scoresScreenEl.style.display = "none";
+startButtonEl.addEventListener("click", startQuiz);
 
 //Function used to show the next question.
 var nextQuestion = function(){
@@ -223,7 +220,7 @@ function getAnswers() {
     return option;
 }
 
-nextEl.addEventListener("click", nextQuestion);
+nextButtonEl.addEventListener("click", nextQuestion);
 
 //Function to save scores to local storage.
 function saveScore () {
@@ -231,7 +228,6 @@ function saveScore () {
         userScore: 0,
         userName: ""
     }
-    
     scoreKeyVal.userName = document.querySelector("input[name='userName']").value;
     if (scoreKeyVal.userName){
         scoreKeyVal.userScore = score;
@@ -239,11 +235,12 @@ function saveScore () {
         highScores[saveSlot] = temparr;
         saveSlot++;
         localStorage.setItem("High-scores", JSON.stringify(highScores));
-        resultsEl.style.display = "none";
-        instructionsEl.style.display ="block";
+        resultsScreenEl.style.display = "none";
+        instructionsScreenEl.style.display ="block";
+        scoresButtonEl.style.display = "block";
         resetQuiz();
     }else{
-        messageEl.textContent = "Please enter your name";
+        messageContentEl.textContent = "Please enter your name";
         saveScore();
     }  
 }
@@ -253,21 +250,18 @@ function resetQuiz () {
     questionNum = 0;
     score = 0;
     time = 200;
-    timeEl.style.display = "block";
-    timeEl.textContent = "Time";
+    timeContentEl.style.display = "block";
 }
 
-saveEl.addEventListener("click", saveScore);
+saveButtonEl.addEventListener("click", saveScore);
 
 function showScores() {
     var string = "";
-    scoresEL.style.display = "block";
-    instructionsEl.style.display = "none";
-    //console.log(highScores);
-    //debugger;
+    scoresScreenEl.style.display = "block";
+    scoresButtonEl.style.display = "none";
+    instructionsScreenEl.style.display = "none";
     if (highScores.length == 0){
         scoreContentEl.textContent = "There are no scores to show.";
-        console.log("There are no scores to show.");
     }
     for (var i = 0; i < highScores.length; i++){
         string = string.concat("User: " + highScores[i].userName + ", score: " + highScores[i].userScore + "<br>")
@@ -278,8 +272,9 @@ function showScores() {
 scoresButtonEl.addEventListener("click", showScores);
 
 function backToInstructions(){
-    instructionsEl.style.display = "block";
-    scoresEL.style.display = "none";
+    instructionsScreenEl.style.display = "block";
+    scoresScreenEl.style.display = "none";
+    scoresButtonEl.style.display = "block";
 }
 
-backEl.addEventListener("click", backToInstructions);
+backButtonEl.addEventListener("click", backToInstructions);

@@ -5,18 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/css/style.css">
-    <title>Quiz: JAvaScript</title>
+    <title>Quiz: JavaScript</title>
 </head>
 <body>
-    <header>
-        <div><p id="scores">View High Scores</p></div>
-    </header>
     <main>
+        <section>
+            <h2 class="title" id="scores">View High Scores</h2>
+        </section>
         <!--Section for the quiz instructions.-->
         <section id="instructions">
-            <h1 class="header" id="header">Quiz: JavaScript!</h1>
+            <h1 class="title" id="header">Quiz: JavaScript!</h1>
             <p class="content" id="content">
-                This is a quiz about concepts, terms, and code about the JavaScript programming language.
+                This is a quiz about concepts, terms, and code about the JavaScript 
+                programming language. There are 10 questions in total. you will have 200 
+                seconds to complete the quiz, but each incorrect ansewr takes 20 seconds off.
             </p>
             <button class="start" id="start">Start Quiz!</button>
         </section>
@@ -24,8 +26,8 @@
         <!--Section for the quiz, hidden.-->
         <section class="quiz" id="quiz">
             <div class="quiz_header">
-                <p id="time">Time</p>
-                <h2 id="question">Question text</h2>
+                <p class="title"id="time">Time</p>
+                <h2 class="title" id="question">Question text</h2>
                 <ul>
                     <li>
                         <input type="radio" id="a" name="answer" class="answer" />
@@ -49,7 +51,7 @@
         </section>
         <section id="results">
             <div>
-                <h2 id="results">Your results!</h2>
+                <h2 class="title" id="results">Your results!</h2>
                 <p id="resultContent"></p>
                 <p>Enter your name <input type="text" name="userName"></p>
                 <p id="message"></p>
@@ -58,7 +60,7 @@
         </section>
         <section id="scoreScreen">
             <div>
-                <h2>High Scores!</h2>
+                <h2 class="title">High Scores!</h2>
                 <p id="scoresContent"></p>
             </div>
             <button id="back">Back</button>

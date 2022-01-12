@@ -6,41 +6,43 @@
 
 body{
     background-color: #3f0d12;
-    background-image: linear-gradient(180deg, #3f0d12 0%, #a71d31 74%);
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
-header {
-    color: #018C21;
-    font-size: 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    margin: 30px;
+    background-image: linear-gradient(180deg, #3f0d12 0%, #a71d31 74%);
 }
 
 main {
-    background-image: linear-gradient(0deg, #3f0d12 0%, #a71d31 74%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
     width: 80%;
     margin: auto;
-    margin-top: 50px;
     padding: 20px;
+    margin-top: 50px;
     text-align: center;
     background-color: #a71d31;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: linear-gradient(0deg, #3f0d12 0%, #a71d31 74%);
 }
-
-#header, #question, #results {
-    font-size: 4rem;
-    color: rgba(44, 1, 5, 0.9);
-    border-bottom: 5px solid rgba(140, 15, 28, 0.7);
-    padding-bottom: 15px;
-}
-
-main p {
+main p, ul li {
     font-size: 3.5rem;
     color: rgba(44, 1, 5, 0.9);
+}
+
+.title {
+    font-size: 4rem;
+    padding-bottom: 15px;
+    color: rgba(44, 1, 5, 0.9);
+    border-bottom: 5px solid rgba(140, 15, 28, 0.7);
+}
+
+#scores:hover {
+    cursor: pointer;
+    background-color:rgb(189, 185, 185)
+}
+
+
+
+section {
+    background-color: rgb(211, 209, 209);
 }
 
 #question {
@@ -53,26 +55,31 @@ ul {
     padding-left: 15px;
 }
 
-ul li {
-    font-size: 3rem;
-    color: rgba(44, 1, 5, 0.9);
-}
-
-section {
-    background-color: rgb(211, 209, 209);
-}
-
 button {
-    background-color: rgba(140, 15, 28, 0.7);
     width: 25%;
     height: 30px;
+    color: white;
+    margin-top: 20px;
     cursor: pointer;
     margin-bottom: 20px;
-    margin-top: 20px;
     border-radius: 15px;
-    color: white;
+    background-color: rgba(140, 15, 28, 0.7);
 }
 
 button:hover{
     background-color: rgb(138, 44, 54);
+}
+
+@media screen and (max-width: 575px) {
+    main p, ul li {
+        font-size: 1.5rem;
+    }
+
+    .title {
+        font-size: 2.7rem;
+    }
+
+    #question {
+        font-size: 2.5rem;
+    }
 }
