@@ -39,8 +39,6 @@ main p, ul li {
     background-color:rgb(189, 185, 185)
 }
 
-
-
 section {
     background-color: rgb(211, 209, 209);
 }
@@ -53,6 +51,10 @@ ul {
     list-style: none;
     text-align: left;
     padding-left: 15px;
+}
+
+ul li, ul li label {
+    cursor: pointer;
 }
 
 button {

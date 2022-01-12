@@ -46,7 +46,7 @@ quizData = [
         d: "All of the above",
         answer: "b",
     },{
-        question: "_______ is plain-language description ofthe steps that an algorithm or application must complete.",
+        question: "_______ is plain-language description of the steps that an algorithm or application must complete.",
         a: "Low-level code",
         b: "Plain code",
         c: "High-Level code",
@@ -75,10 +75,10 @@ quizData = [
           answer: "b",
     },{
         question: "What is Math.random() is used for?.",
-        a: "returns a random number between 0 and 10, not including 10.",
-        b: "returns a random number between 0 and 1, including 1.",
-        c: "returns a random number between 0 and 10, including 10",
-        d: "returns a random number between 0 and 1, not including 1",
+        a: "Returns a random number between 0 and 10, not including 10.",
+        b: "Returns a random number between 0 and 1, including 1.",
+        c: "Returns a random number between 0 and 10, including 10.",
+        d: "Returns a random number between 0 and 1, not including 1.",
         answer: "d",
     },{
         question: "The first index of an array is.",
@@ -89,10 +89,10 @@ quizData = [
         answer: "b",
     },{
         question: "An event listener is the ",
-        a: "Response to an event",
-        b: "User behaviour",
-        c: "Observation of an event",
-        d: "Creation of an event",
+        a: "Response to an event.",
+        b: "User behaviour.",
+        c: "Observation of an event.",
+        d: "Creation of an event.",
         answer: "c",
     },{
         question: "_______ tells the browser to not carry out its default behaviour.",
