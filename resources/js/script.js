@@ -1,29 +1,35 @@
+//Different screens.
+const instructionsEl = document.getElementById("instructions");
 const quizEl = document.getElementById("quiz");
+const resultsEl = document.getElementById("results");
+const scoresEL = document.getElementById("scoreScreen");
+//Different buttons.
+const startEl = document.getElementById("start");
+const nextEl = document.getElementById("submit");
+const saveEl = document.getElementById("save");
+const scoresButtonEl = document.getElementById("scores");
+const backEl = document.getElementById("back");
+//Question elements.
 const questionEl = document.getElementById("question");
 const answerAEl = document.getElementById("a_answer");
 const answerBEl = document.getElementById("b_answer");
 const answerCEl = document.getElementById("c_answer");
 const answerDEl = document.getElementById("d_answer");
-const nextEl = document.getElementById("submit");
-const startEl = document.getElementById("start");
-const instructionsEl = document.getElementById("instructions");
-const timeEl = document.getElementById("time");
 
+const timeEl = document.getElementById("time");
+const resultContentEl = document.getElementById("resultContent");
+const scoreContentEl = document.getElementById("scoresContent");
+const messageEl = document.getElementById("message");
+
+let highScores = [];
 let quizData = [];
 let questionNum = 0;
 let counter;
-var score = 0;
+
 var time = 200;
-
-quizEl.style.display = "none";
-
-function clearAnswer() {
-    //To unselect all of the options.
-    const answers = document.querySelectorAll(".answer");
-    answers.forEach((answers) => {
-      answers.checked = false;
-    });
-}
+var score = 0;
+var temparr = "";
+var saveSlot = 0;
 
 quizData = [
     {
@@ -106,6 +112,19 @@ quizData = [
         d: "event.pauseDefault()",
         answer: "c",
     }];
+
+var savedScores = localStorage.getItem("High-scores");
+savedScores = JSON.parse(savedScores);//Converts to array. Original format.
+if (savedScores){
+    highScores = savedScores;
+    saveSlot = highScores.length;
+}
+else{
+    saveSlot = 0;
+}
+
+
+//Function used to start the quiz.
 var startQuiz = function (){
     instructionsEl.style.display = "none";
     quizEl.style.display = "block";
@@ -115,26 +134,7 @@ var startQuiz = function (){
     timeCall();    
 }
 
-function timeCall(){
-    counter = setInterval(timer, 1000);
-    function timer(){
-        timeEl.textContent = time; 
-        time--;
-        if (questionNum == quizData.length){
-            clearInterval(counter);
-            timeEl.style.display = "none";
-        }
-        
-        if (time < 0){
-            debugger;
-            time = Math.max(0, time);
-            endQuiz();
-            clearInterval(counter);
-            timeEl.style.display = "none";
-        }
-    }
-}
-
+//Function used to load the quiz questions/answers.
 function loadQuiz(){
     clearAnswer();
     const currentQuestionNum = quizData[questionNum];
@@ -146,47 +146,140 @@ function loadQuiz(){
     answerDEl.innerText = currentQuestionNum.d;
 }
 
+//Function used to deselect any previous answer from the user.
+function clearAnswer() {
+    //To unselect all of the options.
+    const answers = document.querySelectorAll(".answer");
+    answers.forEach((answers) => {
+      answers.checked = false;
+    });
+}
+
+//Function used to set the timer.
+function timeCall(){
+    counter = setInterval(timer, 1000);
+    function timer(){
+        timeEl.textContent = time; 
+        time--;
+        if (questionNum == quizData.length){
+            clearTimer();
+        }
+        
+        if (time < 0){
+            endQuiz();
+            clearTimer();
+        }
+    }
+}
+
+//Function used to end the quiz.
+function endQuiz(){
+    time = Math.max(0, time);
+    score = score + (time * 2);
+    resultsEl.style.display = "block";
+    quizEl.style.display = "none";
+    resultContentEl.textContent="Your score is " + score;
+}
+
+//Function used to clear the timer at the end of the quiz.
+function clearTimer() {
+    clearInterval(counter);
+    timeEl.style.display = "none";
+}
+
+quizEl.style.display = "none";
+resultsEl.style.display = "none";
+scoresEL.style.display = "none";
 startEl.addEventListener("click", startQuiz);
 
+//Function used to show the next question.
 var nextQuestion = function(){
     const answer = getAnswers();
-  if (answer) {
-    if (answer === quizData[questionNum].answer) {
-        score = score + 5;
-        console.log("correct!" + score);
+    if (answer) {
+        if (answer === quizData[questionNum].answer) {
+            score = score + 5;
+        }else{
+            time-=20;
+        }
+        questionNum++;
+        if (questionNum < quizData.length) {
+            loadQuiz();
+        }else{
+            endQuiz();
+        }
     }
-    else{
-        time-=20;
-        console.log("incorrect");
-    }
-    questionNum++;
-    if (questionNum < quizData.length) {
-        loadQuiz();
-    }
-    else{
-        endQuiz();
-    }
-}
 }
 
-function endQuiz(){
-    score = score +(time * 2);
-    quizEl.innerHTML = `<h2>You have completed the quiz.</h2>
-            <h3>Your score is ${score} out of a possible ${quizData.length}</h3>
-            <h3>Excellent!</h3>
-            <button onclick="location.reload()">Try Again</button>`;
-}
-
+//Function used to get the 
 function getAnswers() {
     const answersEl = document.querySelectorAll(".answer");
     let option = undefined;
     //To check which option was checked by the user.
     answersEl.forEach((answersEl) => {
-      if (answersEl.checked) {
-        option = answersEl.id;
-      }
+        if (answersEl.checked) {
+            option = answersEl.id;
+        }
     });
     return option;
 }
 
 nextEl.addEventListener("click", nextQuestion);
+
+//Function to save scores to local storage.
+function saveScore () {
+    var scoreKeyVal = {
+        userScore: 0,
+        userName: ""
+    }
+    
+    scoreKeyVal.userName = document.querySelector("input[name='userName']").value;
+    if (scoreKeyVal.userName){
+        scoreKeyVal.userScore = score;
+        temparr = scoreKeyVal;
+        highScores[saveSlot] = temparr;
+        saveSlot++;
+        localStorage.setItem("High-scores", JSON.stringify(highScores));
+        resultsEl.style.display = "none";
+        instructionsEl.style.display ="block";
+        resetQuiz();
+    }else{
+        messageEl.textContent = "Please enter your name";
+        saveScore();
+    }  
+}
+
+//function used to reset the quiz.
+function resetQuiz () {
+    questionNum = 0;
+    score = 0;
+    time = 200;
+    timeEl.style.display = "block";
+    timeEl.textContent = "Time";
+}
+
+saveEl.addEventListener("click", saveScore);
+
+function showScores() {
+    var string = "";
+    scoresEL.style.display = "block";
+    instructionsEl.style.display = "none";
+    //console.log(highScores);
+    //debugger;
+    if (highScores.length == 0){
+        scoreContentEl.textContent = "There are no scores to show.";
+        console.log("There are no scores to show.");
+    }
+    for (var i = 0; i < highScores.length; i++){
+        string = string.concat("User: " + highScores[i].userName + ", score: " + highScores[i].userScore + "<br>")
+        scoreContentEl.innerHTML = string;  
+    }
+}
+
+scoresButtonEl.addEventListener("click", showScores);
+
+function backToInstructions(){
+    instructionsEl.style.display = "block";
+    scoresEL.style.display = "none";
+}
+
+backEl.addEventListener("click", backToInstructions);

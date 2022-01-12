@@ -31,10 +31,11 @@ main {
     background-color: #a71d31;
 }
 
-main h1 {
-    font-size: 4.2rem;
+#header, #question, #results {
+    font-size: 4rem;
     color: rgba(44, 1, 5, 0.9);
     border-bottom: 5px solid rgba(140, 15, 28, 0.7);
+    padding-bottom: 15px;
 }
 
 main p {
@@ -49,8 +50,29 @@ main p {
 ul {
     list-style: none;
     text-align: left;
+    padding-left: 15px;
 }
 
 ul li {
     font-size: 3rem;
+    color: rgba(44, 1, 5, 0.9);
+}
+
+section {
+    background-color: rgb(211, 209, 209);
+}
+
+button {
+    background-color: rgba(140, 15, 28, 0.7);
+    width: 25%;
+    height: 30px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    color: white;
+}
+
+button:hover{
+    background-color: rgb(138, 44, 54);
 }

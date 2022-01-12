@@ -9,8 +9,7 @@
 </head>
 <body>
     <header>
-        <div><p>View High Scores</p></div>
-        <div><p id="time">Time</p></div>
+        <div><p id="scores">View High Scores</p></div>
     </header>
     <main>
         <!--Section for the quiz instructions.-->
@@ -25,6 +24,7 @@
         <!--Section for the quiz, hidden.-->
         <section class="quiz" id="quiz">
             <div class="quiz_header">
+                <p id="time">Time</p>
                 <h2 id="question">Question text</h2>
                 <ul>
                     <li>
@@ -46,6 +46,22 @@
                 </ul>
             </div>
             <button id="submit">Next</button>
+        </section>
+        <section id="results">
+            <div>
+                <h2 id="results">Your results!</h2>
+                <p id="resultContent"></p>
+                <p>Enter your name <input type="text" name="userName"></p>
+                <p id="message"></p>
+            </div>
+            <button id="save">Save</button>
+        </section>
+        <section id="scoreScreen">
+            <div>
+                <h2>High Scores!</h2>
+                <p id="scoresContent"></p>
+            </div>
+            <button id="back">Back</button>
         </section>
     </main>
     <script src="resources/js/script.js"></script>
